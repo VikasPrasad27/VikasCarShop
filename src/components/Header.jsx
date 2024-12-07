@@ -7,15 +7,27 @@ function Header() {
   const [sellCarDropdownOpen, setSellCarDropdownOpen] = useState(false);
   const [moreDropdownOpen, setMoreDropdownOpen] = useState(false);
   const [accountDropdownOpen, setAccountDropdownOpen] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <nav className="flex justify-between items-center p-4 bg-white shadow-md text-black">
-      <div className="flex items-center space-x-6">
+    <nav className="flex justify-between items-center p-4 bg-white shadow-md text-black flex-wrap">
+      <div className="flex items-center space-x-6 w-full lg:w-auto justify-between">
         <Link to="/" className="text-2xl font-bold text-red-600 flex items-center">
           VikasCarShop
         </Link>
 
-        <div className="relative">
+        <div className="lg:hidden ml-auto">
+          <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
+            <img
+              src="https://cdn-icons-png.flaticon.com/128/12314/12314153.png"
+              alt="Menu"
+              className="w-8 h-8"
+            />
+          </button>
+        </div>
+
+
+        <div className="relative hidden lg:block">
           <button
             onMouseEnter={() => setLocationDropdownOpen(!locationDropdownOpen)}
             onMouseLeave={() => setLocationDropdownOpen(!locationDropdownOpen)}
@@ -32,22 +44,22 @@ function Header() {
           )}
         </div>
       </div>
+      <div className="flex items-center space-x-4 flex-grow max-w-lg mx-auto relative w-full lg:w-auto">
+        <input
+          type="text"
+          placeholder="Search Car"
+          className="w-full px-4 py-2 pr-12 border border-gray-400 rounded-full focus:outline-none focus:border-gray-500"
+        />
+        <img
+          src="https://cdn.hugeicons.com/icons/search-01-bulk-rounded.svg"
+          alt="Search Icon"
+          className="absolute right-4 top-1/2 transform -translate-y-1/2 w-6 h-6"
+        />
+      </div>
 
-      <div className="flex items-center space-x-4 flex-grow max-w-lg mx-auto relative">
-  <input
-    type="text"
-    placeholder="Search Car"
-    className="w-full px-4 py-2 pr-12 border border-gray-400 rounded-full focus:outline-none focus:border-gray-500"
-  />
-  <img
-    src="https://cdn.hugeicons.com/icons/search-01-bulk-rounded.svg"
-    alt="Search Icon"
-    className="absolute right-4 top-1/2 transform -translate-y-1/2 w-6 h-6"
-  />
-</div>
-
-     
-      <ul className="flex items-center space-x-6">
+      <ul
+        className={`lg:flex items-center space-x-6 ${mobileMenuOpen ? 'block' : 'hidden'} lg:block w-full lg:w-auto`}
+      >
         <li className="relative">
           <button
             onMouseEnter={() => setBuyCarDropdownOpen(!buyCarDropdownOpen)}
@@ -66,8 +78,8 @@ function Header() {
 
         <li className="relative">
           <button
-           onMouseEnter={() => setSellCarDropdownOpen(!sellCarDropdownOpen)}
-           onMouseLeave={() => setSellCarDropdownOpen(!sellCarDropdownOpen)}
+            onMouseEnter={() => setSellCarDropdownOpen(!sellCarDropdownOpen)}
+            onMouseLeave={() => setSellCarDropdownOpen(!sellCarDropdownOpen)}
             className="hover:text-gray-600"
           >
             Sell Car <span className="ml-1">&#9660;</span>
@@ -98,9 +110,9 @@ function Header() {
         </li>
 
         <li>
-            <Link to="/shortlisted" className="hover:text-gray-600 ">
+          <Link to="/shortlisted" className="hover:text-gray-600">
             <img className="ml-6" src="https://cdn.hugeicons.com/icons/favourite-duotone-rounded.svg" alt="" />
-             Shortlisted
+            Shortlisted
           </Link>
         </li>
 
@@ -109,7 +121,8 @@ function Header() {
             onClick={() => setAccountDropdownOpen(!accountDropdownOpen)}
             className="hover:text-gray-600"
           >
-           <img className='ml-6' src="https://cdn.hugeicons.com/icons/account-setting-03-stroke-rounded.svg" alt="" /> Account <span className="ml-1">&#9660;</span>
+            <img className="ml-6" src="https://cdn.hugeicons.com/icons/account-setting-03-stroke-rounded.svg" alt="" />
+            Account <span className="ml-1">&#9660;</span>
           </button>
           {accountDropdownOpen && (
             <ul className="absolute right-0 mt-2 w-40 bg-white text-black rounded-lg shadow-lg">
@@ -120,8 +133,9 @@ function Header() {
           )}
         </li>
 
-        <li className="ml-4 flex flex-col ">
-          <span className="text-gray-600 font-semibold">Call us at</span> <a href="tel:7277277275" className="text-gray-800 font-bold">7483292903</a>
+        <li className="ml-4 flex flex-col">
+          <span className="text-gray-600 font-semibold">Call us at</span>
+          <a href="tel:7277277275" className="text-gray-800 font-bold">7483292903</a>
         </li>
       </ul>
     </nav>
